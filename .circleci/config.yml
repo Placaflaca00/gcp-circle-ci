@@ -16,31 +16,30 @@ jobs:
           name: Build Application
           command: npm run build
 
- deploy:  
-  docker:    
-    - image: google/cloud-sdk:alpine  
-  steps:    
-    - run:        
-        name: Install coreutils        
-        command: apk add --no-cache coreutils    
-    - run:
-        name: Check GCLOUD_SERVICE_KEY Length
-        command: echo "Length of GCLOUD_SERVICE_KEY: ${#GCLOUD_SERVICE_KEY}"
-    - run:        
-        name: Create Service Key File        
-        command: echo "$GCLOUD_SERVICE_KEY" > /home/circleci/gcloud-service-key.json          
-    - run:
-        name: Verify JSON File
-        command: cat /home/circleci/gcloud-service-key.json
-    - run:        
-        name: Authenticate Google Cloud        
-        command: |          
-          gcloud auth activate-service-account --key-file=/home/circleci/gcloud-service-key.json          
-          gcloud config set project $GOOGLE_PROJECT_ID
-    - run:
-        name: Deploy to Google Cloud
-        command: gcloud app deploy --quiet
-
+  deploy:  
+    docker:    
+      - image: google/cloud-sdk:alpine  
+    steps:    
+      - run:        
+          name: Install coreutils        
+          command: apk add --no-cache coreutils    
+      - run:
+          name: Check GCLOUD_SERVICE_KEY Length
+          command: echo "Length of GCLOUD_SERVICE_KEY: ${#GCLOUD_SERVICE_KEY}"
+      - run:        
+          name: Create Service Key File        
+          command: echo "$GCLOUD_SERVICE_KEY" > /home/circleci/gcloud-service-key.json          
+      - run:
+          name: Verify JSON File
+          command: cat /home/circleci/gcloud-service-key.json
+      - run:        
+          name: Authenticate Google Cloud        
+          command: |          
+            gcloud auth activate-service-account --key-file=/home/circleci/gcloud-service-key.json          
+            gcloud config set project $GOOGLE_PROJECT_ID
+      - run:
+          name: Deploy to Google Cloud
+          command: gcloud app deploy --quiet
 
 workflows:
   version: 2
