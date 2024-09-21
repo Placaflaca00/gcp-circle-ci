@@ -10,9 +10,6 @@ jobs:
           name: List Files After Checkout
           command: ls -al
       - run:
-          name: Print Current Directory
-          command: pwd
-      - run:
           name: Install Dependencies
           command: npm install
       - run:
@@ -35,11 +32,14 @@ jobs:
             gcloud auth activate-service-account --key-file=$HOME/gcloud-service-key.json          
             gcloud config set project $GOOGLE_PROJECT_ID
       - run:
+          name: Move app.yaml to Root Project
+          command: mv /home/circleci/project/path/to/app.yaml /home/circleci/project/
+      - run:
           name: List Files Before Deploy
-          command: ls -al $HOME # Cambia esto si el directorio es diferente
+          command: ls -al
       - run:
           name: Deploy to Google Cloud
-          command: gcloud app deploy app.yaml --quiet # Cambia esto si el archivo está en un subdirectorio
+          command: gcloud app deploy --quiet
 
 workflows:
   version: 2
