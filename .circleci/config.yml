@@ -16,23 +16,22 @@ jobs:
           name: Build Application
           command: npm run build
 
- deploy:  
-  docker:    
-  - image: google/cloud-sdk:alpine  
-  steps:    
-  - run:        
-  name: Install coreutils        
-  command: apk add --no-cache coreutils    
-  - run:        
-    name: Authenticate Google Cloud        
-    command: |          
-      echo $GCLOUD_SERVICE_KEY | base64 --decode > ${HOME}/gcloud-service-key.json          
-      gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json          
-      gcloud config set project $GOOGLE_PROJECT_ID
-  - run:
-      name: Deploy to Google Cloud
-      command: |
-      gcloud app deploy --quiet
+  deploy:  
+    docker:    
+      - image: google/cloud-sdk:alpine  
+    steps:    
+      - run:        
+          name: Install coreutils        
+          command: apk add --no-cache coreutils    
+      - run:        
+          name: Authenticate Google Cloud        
+          command: |          
+            echo $GCLOUD_SERVICE_KEY | base64 --decode > ${HOME}/gcloud-service-key.json          
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json          
+            gcloud config set project $GOOGLE_PROJECT_ID
+      - run:
+          name: Deploy to Google Cloud
+          command: gcloud app deploy --quiet
 
 workflows:
   version: 2
