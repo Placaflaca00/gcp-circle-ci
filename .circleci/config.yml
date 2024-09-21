@@ -21,14 +21,8 @@ jobs:
       - image: google/cloud-sdk:alpine  
     steps:    
       - run:        
-          name: Install coreutils        
-          command: apk add --no-cache coreutils    
-      - run:
           name: Create Service Key File        
-          command: echo "$GCLOUD_SERVICE_KEY" | base64 --decode > $HOME/gcloud-service-key.json          
-      - run:
-          name: List Files
-          command: ls -l $HOME
+          command: echo "$GCLOUD_SERVICE_KEY" > $HOME/gcloud-service-key.json          
       - run:
           name: Authenticate Google Cloud        
           command: |          
