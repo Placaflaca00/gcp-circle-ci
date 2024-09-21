@@ -10,6 +10,9 @@ jobs:
           name: List Files After Checkout
           command: ls -al
       - run:
+          name: Print Current Directory
+          command: pwd
+      - run:
           name: Install Dependencies
           command: npm install
       - run:
@@ -34,6 +37,9 @@ jobs:
       - run:
           name: List Files Before Deploy
           command: ls -al
+      - run:
+          name: Print Current Directory Before Deploy
+          command: pwd
       - run:
           name: Deploy to Google Cloud
           command: gcloud app deploy --quiet
