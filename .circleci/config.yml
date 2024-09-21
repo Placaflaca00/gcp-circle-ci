@@ -25,14 +25,14 @@ jobs:
           command: apk add --no-cache coreutils    
       - run:
           name: Create Service Key File        
-          command: echo "$GCLOUD_SERVICE_KEY" | base64 --decode > /tmp/gcloud-service-key.json          
+          command: echo "$GCLOUD_SERVICE_KEY" > $HOME/gcloud-service-key.json          
       - run:
           name: Verify JSON File
-          command: cat /tmp/gcloud-service-key.json
+          command: cat $HOME/gcloud-service-key.json
       - run:
           name: Authenticate Google Cloud        
           command: |          
-            gcloud auth activate-service-account --key-file=/tmp/gcloud-service-key.json          
+            gcloud auth activate-service-account --key-file=$HOME/gcloud-service-key.json          
             gcloud config set project $GOOGLE_PROJECT_ID
       - run:
           name: Deploy to Google Cloud
