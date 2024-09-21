@@ -25,7 +25,7 @@ jobs:
           command: apk add --no-cache coreutils    
       - run:
           name: Create Service Key File        
-          command: echo "$GCLOUD_SERVICE_KEY" > /tmp/gcloud-service-key.json          
+          command: echo "$GCLOUD_SERVICE_KEY" | base64 --decode > /tmp/gcloud-service-key.json          
       - run:
           name: Verify JSON File
           command: cat /tmp/gcloud-service-key.json
