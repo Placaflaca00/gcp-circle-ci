@@ -30,7 +30,7 @@ jobs:
             gcloud config set project $GOOGLE_PROJECT_ID
       - run:
           name: Deploy to Google Cloud Project
-          command: gcloud app deploy --quiet
+          command: gcloud app deploy 
 
 workflows:
   version: 2
