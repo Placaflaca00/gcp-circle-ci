@@ -42,9 +42,13 @@ jobs:
             gcloud config set project $GOOGLE_PROJECT_ID
 
       - run:
-          name: Enable App Engine Admin API
+          name: Check if App Engine API is enabled
           command: |
-            gcloud services enable appengine.googleapis.com
+            if ! gcloud services list --enabled --format='value(NAME)' | grep -q appengine.googleapis.com; then
+            echo "Error: App Engine API is not enabled. Please enable it in the Google Cloud Console."
+            echo "Visit: https://console.developers.google.com/apis/api/appengine.googleapis.com/overview?project=$GOOGLE_PROJECT_ID"
+            exit 1
+          fi
       - run:
           name: List Files After Moving app.yaml
           command: ls -al
