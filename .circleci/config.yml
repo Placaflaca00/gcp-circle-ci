@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Verify JSON File
           command: cat /tmp/gcloud-service-key.json
-      - run:        
+      - run:
           name: Authenticate Google Cloud        
           command: |          
             gcloud auth activate-service-account --key-file=/tmp/gcloud-service-key.json          
