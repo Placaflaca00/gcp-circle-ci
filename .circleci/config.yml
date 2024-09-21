@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: List Files After Checkout
+          command: ls -al
+      - run:
           name: Install Dependencies
           command: npm install
       - run:
@@ -29,11 +32,10 @@ jobs:
             gcloud auth activate-service-account --key-file=$HOME/gcloud-service-key.json          
             gcloud config set project $GOOGLE_PROJECT_ID
       - run:
-          name: List Files
+          name: List Files Before Deploy
           command: ls -al
-
       - run:
-          name: Deploy to Google Cloud Project
+          name: Deploy to Google Cloud
           command: gcloud app deploy --quiet
 
 workflows:
