@@ -39,7 +39,7 @@ jobs:
           command: ls -al /home/circleci/project
       - run:
           name: Deploy to Google Cloud
-          command: gcloud app deploy --quiet --project=$GOOGLE_PROJECT_ID --verbosity=info /home/circleci/project
+          command: gcloud app deploy /home/circleci/project/app.yaml --quiet
 
 workflows:
   version: 2
