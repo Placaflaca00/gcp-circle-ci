@@ -39,7 +39,7 @@ jobs:
           command: ls -al $HOME # Cambia esto si el directorio es diferente
       - run:
           name: Deploy to Google Cloud
-          command: gcloud app deploy $HOME/app.yaml --quiet # Cambia esto si el archivo está en un subdirectorio
+          command: gcloud app deploy app.yaml --quiet # Cambia esto si el archivo está en un subdirectorio
 
 workflows:
   version: 2
