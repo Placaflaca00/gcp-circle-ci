@@ -24,9 +24,17 @@ jobs:
           name: Install coreutils        
           command: apk add --no-cache coreutils    
       - run:        
+          name: Debug GCLOUD_SERVICE_KEY        
+          command: echo $GCLOUD_SERVICE_KEY
+      - run:        
+          name: Create Service Key File        
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json          
+      - run:
+          name: Verify JSON File
+          command: cat ${HOME}/gcloud-service-key.json
+      - run:        
           name: Authenticate Google Cloud        
           command: |          
-            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json          
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json          
             gcloud config set project $GOOGLE_PROJECT_ID
       - run:
