@@ -35,14 +35,11 @@ jobs:
             gcloud auth activate-service-account --key-file=$HOME/gcloud-service-key.json          
             gcloud config set project $GOOGLE_PROJECT_ID
       - run:
-          name: Change Directory to Project
-          command: cd /home/circleci/project
-      - run:
           name: List Files Before Deploy
           command: ls -al /home/circleci/project
       - run:
           name: Deploy to Google Cloud
-          command: gcloud app deploy --quiet --project=$GOOGLE_PROJECT_ID --verbosity=info --quiet
+          command: gcloud app deploy --quiet --project=$GOOGLE_PROJECT_ID --verbosity=info /home/circleci/project
 
 workflows:
   version: 2
