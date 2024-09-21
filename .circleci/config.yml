@@ -18,11 +18,20 @@ jobs:
       - run:
           name: Build Application
           command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   deploy:  
     docker:    
       - image: google/cloud-sdk:alpine  
-    steps:    
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Set Working Directory
+          command: cd .
       - run:        
           name: Create Service Key File        
           command: echo "$GCLOUD_SERVICE_KEY" > $HOME/gcloud-service-key.json          
@@ -36,7 +45,7 @@ jobs:
           command: ls -al
       - run:
           name: Deploy to Google Cloud
-          command: gcloud app deploy --quiet
+          command: gcloud app deploy app.yaml --quiet
 
 workflows:
   version: 2
