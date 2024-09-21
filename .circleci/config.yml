@@ -33,7 +33,7 @@ jobs:
             gcloud config set project $GOOGLE_PROJECT_ID
       - run:
           name: Move app.yaml to Root Project
-          command: mv /home/circleci/project/path/to/app.yaml /home/circleci/project/
+          command: mv /home/circleci/project/app.yaml /home/circleci/project/
       - run:
           name: List Files Before Deploy
           command: ls -al
