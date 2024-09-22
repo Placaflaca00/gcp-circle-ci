@@ -54,7 +54,8 @@ jobs:
           command: ls -al
       - run:
           name: Deploy to Google Cloud
-          command: gcloud app deploy --quiet
+          command: gcloud app deploy --no-cache --quiet
+
 
 workflows:
   version: 2
