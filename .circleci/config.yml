@@ -52,9 +52,7 @@ jobs:
       - run:
           name: List Files After Moving app.yaml
           command: ls -al
-      - run:
-          name: Deploy to Google Cloud
-          command: gcloud app deploy --no-cache --quiet
+    
 
 
 workflows:

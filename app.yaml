@@ -1,4 +1,5 @@
-runtime: nodejs20
-handlers:  
+runtime: static  # Puedes usar este runtime o el runtime `static`
+handlers:
   - url: /.*    
-    script: auto
+    static_files: app.html  # Tu archivo HTML estático
+    upload: app.html
