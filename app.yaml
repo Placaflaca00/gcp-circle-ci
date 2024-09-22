@@ -1,5 +1,10 @@
-runtime: python27 # Puedes usar este runtime o el runtime `static`
+runtime: python39  # o static
+threadsafe: true   # Indica que la aplicación puede manejar solicitudes simultáneas
+
 handlers:
+  - url: /static
+    static_dir: static  # Ruta para tus archivos estáticos, si los tienes
+
   - url: /.*    
-    static_files: app.html  # Tu archivo HTML estático
-    upload: app.html
+    static_files: index.html  # Archivo HTML principal
+    upload: index.html
