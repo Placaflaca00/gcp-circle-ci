@@ -1,4 +1,4 @@
-runtime:  nodejs20  # o static
+runtime:  nodejs18  # o static
 handlers:
   - url: /  
     static_files: index.html  # Archivo HTML principal
