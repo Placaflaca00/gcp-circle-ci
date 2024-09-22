@@ -55,8 +55,7 @@ jobs:
 
       - run:
           name: Deploy Application
-          command: gcloud app deploy app.yaml
-    
+          command: gcloud app deploy --quiet
 
 
 workflows:
