@@ -1,4 +1,4 @@
-runtime: static  # Puedes usar este runtime o el runtime `static`
+runtime: python27 # Puedes usar este runtime o el runtime `static`
 handlers:
   - url: /.*    
     static_files: app.html  # Tu archivo HTML estático
