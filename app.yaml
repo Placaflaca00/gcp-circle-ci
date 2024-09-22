@@ -1,5 +1,5 @@
-runtime: python39  # o static
+runtime:  nodejs10  # o static
 handlers:
-  - url: /.*    
+  - url: /  
     static_files: index.html  # Archivo HTML principal
     upload: index.html
