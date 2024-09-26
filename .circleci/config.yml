@@ -29,6 +29,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: npm install
+        - run:
+          name: Fix permissions
+          command: chmod -R 755 ./node_modules/.bin
       - run:
           name: Run Linting
           command: npm run lint
