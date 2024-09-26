@@ -1,14 +1,13 @@
 // eslint.config.js
-const js = require("@eslint/js");
-const { FlatCompat } = require("@eslint/eslintrc");
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
 
-// This compatibility layer helps to migrate from the .eslintrc format
 const compat = new FlatCompat({
-  baseDirectory: process.cwd(), // Optional
+  baseDirectory: process.cwd(),
 });
 
-module.exports = [
-  js.configs.recommended, // Use ESLint's recommended settings
+export default [
+  js.configs.recommended,
   ...compat.config({
     parserOptions: {
       ecmaVersion: 2021,
