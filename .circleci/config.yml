@@ -13,11 +13,31 @@ jobs:
           name: Install Dependencies
           command: npm install
       - run:
-          name: Run Tests
-          command: npm test
-      - run:
           name: Build Application
           command: npm run build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  test:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Run Linting
+          command: npm run lint
+      - run:
+          name: Run Unit Tests with Coverage
+          command: npm run test -- --coverage
+      - store_artifacts:
+          path: coverage
+          destination: coverage
       - persist_to_workspace:
           root: .
           paths:
@@ -29,9 +49,6 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run:
-          name: Set Working Directory
-          command: cd .
       - run:        
           name: Create Service Key File        
           command: echo "$GCLOUD_SERVICE_KEY" > $HOME/gcloud-service-key.json          
@@ -40,32 +57,29 @@ jobs:
           command: |          
             gcloud auth activate-service-account --key-file=$HOME/gcloud-service-key.json          
             gcloud config set project $GOOGLE_PROJECT_ID
-
       - run:
           name: Check if App Engine API is enabled
           command: |
             if ! gcloud services list --enabled --format='value(NAME)' | grep -q appengine.googleapis.com; then
-            echo "Error: App Engine API is not enabled. Please enable it in the Google Cloud Console."
-            echo "Visit: https://console.developers.google.com/apis/api/appengine.googleapis.com/overview?project=$GOOGLE_PROJECT_ID"
-            exit 1
+              echo "Error: App Engine API is not enabled. Please enable it in the Google Cloud Console."
+              echo "Visit: https://console.developers.google.com/apis/api/appengine.googleapis.com/overview?project=$GOOGLE_PROJECT_ID"
+              exit 1
             fi
-      - run:
-          name: List Files After Moving app.yaml
-          command: ls -al
-
       - run:
           name: Deploy Application
           command: gcloud app deploy app.yaml --project $GOOGLE_PROJECT_ID --quiet 
       - run:
-          name: Deploy App Browse
+          name: Open Application in Browser
           command: gcloud app browse --project $GOOGLE_PROJECT_ID
-
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
       - build
-      - deploy:
+      - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
