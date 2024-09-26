@@ -2,20 +2,20 @@
   "name": "simple-app",
   "version": "1.0.0",
   "main": "index.js",
- "scripts": {
+  "scripts": {
     "start": "node app.js",
     "test": "echo \"No tests specified\"",
-    "build": "echo \"No build specified\""
-}
-,
+    "build": "echo \"No build specified\"",
+    "lint": "eslint ."
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.11.1"
   }
-
-
-
 }
