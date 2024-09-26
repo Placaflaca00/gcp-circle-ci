@@ -1,13 +1,13 @@
 // eslint.config.js
-import js from "@eslint/js";
-import { FlatCompat } from "@eslint/eslintrc";
+const js = require("@eslint/js");
+const { FlatCompat } = require("@eslint/eslintrc");
 
 // This compatibility layer helps to migrate from the .eslintrc format
 const compat = new FlatCompat({
   baseDirectory: process.cwd(), // Optional
 });
 
-export default [
+module.exports = [
   js.configs.recommended, // Use ESLint's recommended settings
   ...compat.config({
     parserOptions: {
